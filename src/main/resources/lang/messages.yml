@@ -1,0 +1,20 @@
+file-type: 'message'
+
+help:
+  unique-name: 'help'
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7Default help message for MediaTop, you should change this!'
+
+reload:
+  unique-name: 'reload'
+  placeholders:
+    - '{status}'
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d]'
+    - ' &7- &fReload Status: &a&l{status}'

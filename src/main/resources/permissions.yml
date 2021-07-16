@@ -1,0 +1,6 @@
+file-type: 'permission'
+
+command:
+  token: 'mt.cmd.token'
+  reload: 'mt.cmd.reload'
+  help: 'mt.cmd.help'

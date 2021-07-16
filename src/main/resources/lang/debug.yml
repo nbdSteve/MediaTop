@@ -1,0 +1,34 @@
+file-type: 'message'
+
+invalid-command:
+  unique-name: 'invalid-command'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &c&lERROR &7The command you entered is invalid.'
+
+invalid-command-arguments:
+  unique-name: 'invalid-command-arguments'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &c&lERROR &7The command arguments you entered are incorrect.'
+
+no-permission:
+  unique-name: 'no-permission'
+  placeholders:
+    - '{node}'
+  action-bar: 'false'
+  title:
+    enabled: 'true'
+    text: '&c&lNO PERMISSION!'
+    subtitle: '&7Node required: &4&l{node}'
+    fade-in: 10
+    stay: 20
+    fade-out: 20
+  text:
+    - '&d[&5&lMediaTop&d] &c&lERROR &7You do not have permission (&6{node}&7) to use that.'
