@@ -12,6 +12,7 @@ import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.message.MessageManager;
 import gg.steve.mc.dazzer.mt.permission.PermissionManager;
 import gg.steve.mc.dazzer.mt.placeholder.PlaceholderManager;
+import gg.steve.mc.dazzer.mt.token.MediaTokenPlayerManager;
 import gg.steve.mc.dazzer.mt.utility.LogUtil;
 import lombok.Data;
 import org.bukkit.Bukkit;
@@ -33,10 +34,10 @@ public class SPlugin {
     private final InventoryClickActionManager inventoryClickActionManager;
     private final GuiManager guiManager;
     private final FileManager fileManager;
+    private final SQLDatabaseHandler sqlDatabaseHandler;
     // Custom manager classes
     private final MediaTokenDatabaseManager mediaTokenDatabaseManager;
-    // Any other handler classes which are not managers
-    private final SQLDatabaseHandler sqlDatabaseHandler;
+    private final MediaTokenPlayerManager mediaTokenPlayerManager;
 
     public SPlugin(JavaPlugin plugin) {
         instance = this;
@@ -55,6 +56,7 @@ public class SPlugin {
         this.sqlDatabaseHandler = new SQLDatabaseHandler(instance);
         // Custom managers
         this.mediaTokenDatabaseManager = new MediaTokenDatabaseManager();
+        this.mediaTokenPlayerManager = new MediaTokenPlayerManager();
         // load manager classes
         AbstractManager.loadManagers();
         // set up remaining core

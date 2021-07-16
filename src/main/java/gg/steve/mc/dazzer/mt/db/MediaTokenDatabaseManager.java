@@ -29,6 +29,10 @@ public class MediaTokenDatabaseManager extends AbstractManager {
 
     }
 
+    public static MediaTokenDatabaseManager getInstance() {
+        return instance;
+    }
+
     private void generateTables() {
         SQLDatabaseHandler.getInstance().execute("CREATE TABLE IF NOT EXISTS media_tokens(player_id VARCHAR(36) NOT NULL, balance INT NOT NULL, PRIMARY KEY (player_id)");
     }
@@ -39,7 +43,7 @@ public class MediaTokenDatabaseManager extends AbstractManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return 0;
+        return -1;
     }
 
     public void setMediaTokenBalanceForPlayer(UUID playerId, int balance) {

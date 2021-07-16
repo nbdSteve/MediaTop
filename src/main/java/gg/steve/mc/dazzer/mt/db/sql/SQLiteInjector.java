@@ -28,25 +28,25 @@ public class SQLiteInjector extends AbstractDatabaseInjector {
                 try {
                     folder.createNewFile();
                 } catch (IOException e) {
-                    LogUtil.warning("Error creating the Prisons+ SQLite db file");
+                    LogUtil.warning("Error creating the MeidaTop SQLite db file");
                 }
             }
             Class.forName("org.sqlite.JDBC");
             super.setConnection(DriverManager.getConnection("jdbc:sqlite:" + folder));
         } catch (Exception e) {
             e.printStackTrace();
-            LogUtil.info("There was an error connecting to the Prisons+ SQLite database: " + e.getMessage());
+            LogUtil.info("There was an error connecting to the MeidaTop SQLite database: " + e.getMessage());
         }
-        LogUtil.info("Successfully connected to the Prisons+ SQLite database.");
+        LogUtil.info("Successfully connected to the MeidaTop SQLite database.");
     }
 
     @Override
     public void disconnect() {
         try {
             if (super.getConnection() != null && !super.getConnection().isClosed()) super.getConnection().close();
-            LogUtil.info("Successfully disconnected from the Prisons+ SQLite database.");
+            LogUtil.info("Successfully disconnected from the MeidaTop SQLite database.");
         } catch (SQLException e) {
-            LogUtil.info("There was an error disconnecting from the Prisons+ SQLite database: " + e.getMessage());
+            LogUtil.info("There was an error disconnecting from the MeidaTop SQLite database: " + e.getMessage());
         }
     }
 }
