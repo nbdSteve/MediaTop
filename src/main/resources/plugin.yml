@@ -1,6 +1,7 @@
-name: MediaTopPlugin
+name: MediaTop
 version: ${project.version}
-main: gg.steve.mc.deezer.mt.MediaTopPlugin
+main: gg.steve.mc.dazzer.mt.MediaTopPlugin
 api-version: 1.17
+softdepend: [ PlaceholderAPI ]
 authors: [ stevegoodhill ]
 description: MediaTop plugin developer for Deezer by stevegoodhill.
