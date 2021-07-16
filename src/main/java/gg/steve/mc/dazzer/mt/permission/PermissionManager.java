@@ -27,7 +27,7 @@ public class PermissionManager extends AbstractManager {
 
     @Override
     public void onLoad() {
-        this.registerPermission("default", "prisons.default", PermissionType.DEFAULT);
+        this.registerPermission("default", "mt.default", PermissionType.DEFAULT);
     }
 
     @Override

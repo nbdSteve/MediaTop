@@ -2,8 +2,8 @@ package gg.steve.mc.dazzer.mt;
 
 import gg.steve.mc.dazzer.mt.cmd.CommandManager;
 import gg.steve.mc.dazzer.mt.cmd.listener.TabCompleteListener;
+import gg.steve.mc.dazzer.mt.db.MediaTokenDatabaseManager;
 import gg.steve.mc.dazzer.mt.db.SQLDatabaseHandler;
-import gg.steve.mc.dazzer.mt.economy.EconomyManager;
 import gg.steve.mc.dazzer.mt.event.EventManager;
 import gg.steve.mc.dazzer.mt.file.FileManager;
 import gg.steve.mc.dazzer.mt.gui.GuiManager;
@@ -29,12 +29,12 @@ public class SPlugin {
     private final CommandManager commandManager;
     private final PermissionManager permissionManager;
     private final EventManager eventManager;
-    private final EconomyManager economyManager;
     private final PlaceholderManager placeholderManager;
     private final InventoryClickActionManager inventoryClickActionManager;
     private final GuiManager guiManager;
     private final FileManager fileManager;
     // Custom manager classes
+    private final MediaTokenDatabaseManager mediaTokenDatabaseManager;
     // Any other handler classes which are not managers
     private final SQLDatabaseHandler sqlDatabaseHandler;
 
@@ -45,7 +45,6 @@ public class SPlugin {
         this.pluginName = this.plugin.getName();
         // register managers
         this.messageManager = new MessageManager();
-        this.economyManager = new EconomyManager(instance);
         this.placeholderManager = new PlaceholderManager();
         this.eventManager = new EventManager(instance);
         this.inventoryClickActionManager = new InventoryClickActionManager();
@@ -54,6 +53,8 @@ public class SPlugin {
         this.permissionManager = new PermissionManager();
         this.commandManager = new CommandManager(instance);
         this.sqlDatabaseHandler = new SQLDatabaseHandler(instance);
+        // Custom managers
+        this.mediaTokenDatabaseManager = new MediaTokenDatabaseManager();
         // load manager classes
         AbstractManager.loadManagers();
         // set up remaining core

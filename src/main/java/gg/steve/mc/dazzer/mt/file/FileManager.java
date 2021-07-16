@@ -32,11 +32,9 @@ public class FileManager extends AbstractManager {
      */
     public enum CoreFiles {
         // config
-        CONFIG("prisons+.yml"),
+        CONFIG("media-top.yml"),
         // permissions
         PERMISSIONS("permissions.yml"),
-        // addon data
-        ADDON_DATA("data" + File.separator + "addons.yml"),
         // lang
         MESSAGES("lang" + File.separator + "messages.yml"),
         DEBUG("lang" + File.separator + "debug.yml");
