@@ -1,0 +1,17 @@
+file-type: 'gui'
+
+candidates:
+  1:
+    slot: '12'
+    material: 'player_head'
+    amount: '1'
+    damage: ''
+    skull: ''
+    name: ''
+    lore:
+      - ''
+    enchants:
+      - ''
+    flags:
+      - ''
+    unbreakable: 'true'
