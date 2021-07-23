@@ -68,3 +68,32 @@ offline-winner:
     enabled: 'false'
   text:
     - '&d[&5&lMediaTop&d] &7You won the media vote but you were offline, giving rewards now.'
+
+enter-vote-mode:
+  unique-name: 'enter-vote-mode'
+  placeholders:
+    - '{balance}'
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7You have entered vote mode, type a number in chat to vote, you have &e{balance} &7media tokens.'
+
+exit-vote-mode:
+  unique-name: 'exit-vote-mode'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7You have exited vote mode.'
+
+successful-vote:
+  unique-name: 'successful-vote'
+  placeholders:
+    - '{amount}'
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7You successfully cast a vote of &e{amount} &7media tokens.'

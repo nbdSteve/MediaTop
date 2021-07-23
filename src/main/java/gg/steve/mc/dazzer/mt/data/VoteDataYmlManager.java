@@ -5,7 +5,10 @@ import gg.steve.mc.dazzer.mt.data.exception.VoteDataYmlFileNotFoundException;
 import gg.steve.mc.dazzer.mt.file.types.DataPluginFile;
 import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;
+import gg.steve.mc.dazzer.mt.utility.LogUtil;
+import gg.steve.mc.dazzer.mt.vote.Candidate;
 import gg.steve.mc.dazzer.mt.vote.MediaVote;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,7 +59,8 @@ public class VoteDataYmlManager extends AbstractManager {
         DataPluginFile file = new DataPluginFile(String.valueOf(ymlFileId),
                 new File(this.sPlugin.getPlugin().getDataFolder() + File.separator + "data", String.valueOf(ymlFileId) + ".yml"),
                 this.sPlugin);
-        return this.loadedVoteDataFiles.put(ymlFileId, file);
+        this.loadedVoteDataFiles.put(ymlFileId, file);
+        return file;
     }
 
     public DataPluginFile saveVoteDataAsYml(MediaVote vote) {
@@ -82,6 +86,17 @@ public class VoteDataYmlManager extends AbstractManager {
             file = new DataPluginFile(String.valueOf(vote.getVoteId()), raw, this.sPlugin);
         }
         // save logic here
+        YamlConfiguration config = file.get();
+        config.set("file-type", "data");
+        config.set("vote.id", String.valueOf(vote.getVoteId()));
+        config.set("vote.seconds-active", String.valueOf(vote.getSecondsActive()));
+        for (int candidateId : vote.getCandidates().keySet()) {
+            Candidate candidate = vote.getCandidates().get(candidateId);
+            for (UUID playerId : candidate.getVotes().keySet()) {
+                config.set("candidates." + String.valueOf(candidateId) + "." + playerId, String.valueOf(candidate.getPlayerVotes(playerId)));
+            }
+        }
+        file.save();
         return file;
     }
 }

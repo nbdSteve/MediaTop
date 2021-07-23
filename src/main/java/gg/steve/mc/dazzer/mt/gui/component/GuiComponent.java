@@ -25,7 +25,7 @@ public class GuiComponent implements Clickable {
         this.section = section;
         this.slot = slot;
         try {
-            this.clickAction = InventoryClickActionManager.getInstance().getClickActionByUniqueName(section.getString("action"));
+            this.clickAction = InventoryClickActionManager.getInstance().getClickActionByUniqueName(section.getString("action").split(":")[0]);
         } catch (InventoryClickActionNotFoundException e) {
             this.item = new ItemStack(Material.STONE);
             LogUtil.warning(e.getDebugMessage());

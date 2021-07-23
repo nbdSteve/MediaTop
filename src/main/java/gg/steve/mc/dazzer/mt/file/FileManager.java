@@ -39,7 +39,9 @@ public class FileManager extends AbstractManager {
         MESSAGES("lang" + File.separator + "messages.yml"),
         DEBUG("lang" + File.separator + "debug.yml"),
         // data
-        OFFLINE_WINNERS("data" + File.separator + "offline-winners.yml");
+        OFFLINE_WINNERS("data" + File.separator + "offline-winners.yml"),
+        // gui
+        VOTE_GUI("gui" + File.separator + "vote-gui.yml");
 
         private final String path;
 

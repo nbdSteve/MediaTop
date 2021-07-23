@@ -3,23 +3,27 @@ package gg.steve.mc.dazzer.mt.vote;
 import gg.steve.mc.dazzer.mt.data.VoteDataYmlManager;
 import gg.steve.mc.dazzer.mt.data.exception.VoteDataYmlFileNotFoundException;
 import gg.steve.mc.dazzer.mt.db.MediaTokenDatabaseManager;
+import gg.steve.mc.dazzer.mt.event.EventManager;
 import gg.steve.mc.dazzer.mt.file.types.DataPluginFile;
 import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;
+import gg.steve.mc.dazzer.mt.token.MediaTokenPlayerManager;
+import gg.steve.mc.dazzer.mt.vote.listener.PlayerVotingChatListener;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @ManagerClass
 public class MediaVoteManager extends AbstractManager {
     private static MediaVoteManager instance;
     private MediaVote activeMediaVote;
     private Map<UUID, MediaVote> archivedMediaVotes;
+    private Map<UUID, Integer> votingPlayers;
+    private PlayerVotingChatListener listener;
 
     public MediaVoteManager() {
         instance = this;
         this.archivedMediaVotes = new HashMap<>();
+        this.votingPlayers = new Hashtable<>();
         AbstractManager.registerManager(instance);
     }
 
@@ -31,6 +35,8 @@ public class MediaVoteManager extends AbstractManager {
     @Override
     public void onLoad() {
         this.loadMediaVoteIfActive();
+        this.listener = new PlayerVotingChatListener();
+        EventManager.getInstance().registerListener(this.listener);
     }
 
     @Override
@@ -90,5 +96,32 @@ public class MediaVoteManager extends AbstractManager {
             return null;
         }
         return this.archivedMediaVotes.put(voteId, new MediaVote(file, false));
+    }
+
+    public boolean isPlayerVoting(UUID playerId) {
+        return this.votingPlayers.containsKey(playerId);
+    }
+
+    public void setPlayerInVoteMode(UUID playerId, int candidateId) {
+        this.votingPlayers.put(playerId, candidateId);
+    }
+
+    public int getVotingPlayerCandidateId(UUID playerId) {
+        if (!this.isPlayerVoting(playerId)) return -1;
+        return this.votingPlayers.get(playerId);
+    }
+
+    public boolean doPlayerVote(UUID playerId, int amount) {
+        if (!this.isMediaVoteActive()) return false;
+        if (MediaTokenPlayerManager.getInstance().getMediaTokenBalanceForPlayer(playerId) < amount) return false;
+        MediaTokenPlayerManager.getInstance().remove(playerId, amount);
+        this.activeMediaVote.getCandidates().get(this.getVotingPlayerCandidateId(playerId)).update(playerId, Candidate.VoteUpdateType.INCREMENT, amount);
+        this.unsetPlayerInVoteMode(playerId);
+        return true;
+    }
+
+    public void unsetPlayerInVoteMode(UUID playerId) {
+        if (!this.isPlayerVoting(playerId)) return;
+        this.votingPlayers.remove(playerId);
     }
 }

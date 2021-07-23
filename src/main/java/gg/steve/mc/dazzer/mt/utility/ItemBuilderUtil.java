@@ -29,23 +29,7 @@ public class ItemBuilderUtil {
     private NBTItem nbtItem;
 
     public static ItemBuilderUtil getBuilderForMaterial(String material, String data) {
-        if (material.startsWith("hdb")) {
-            String[] parts = material.split("-");
-            if (Bukkit.getPluginManager().getPlugin("HeadDatabase") != null) {
-                try {
-                    return new ItemBuilderUtil(new ItemStack(Material.valueOf("SKULL_ITEM")));
-                } catch (Exception e1) {
-                    return new ItemBuilderUtil(new ItemStack(Material.valueOf("LEGACY_SKULL_ITEM")));
-                }
-            } else {
-                LogUtil.warning("Tried to create a custom head but the plugin HeadDatabase is not installed, setting to default skull.");
-                try {
-                    return new ItemBuilderUtil(new ItemStack(Material.valueOf("SKULL_ITEM")));
-                } catch (Exception e1) {
-                    return new ItemBuilderUtil(new ItemStack(Material.valueOf("LEGACY_SKULL_ITEM")));
-                }
-            }
-        } else if (material.startsWith("head")) {
+        if (material.startsWith("head")) {
             String[] parts = material.split("-");
             ItemStack item;
             try {

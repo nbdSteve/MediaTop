@@ -3,8 +3,10 @@ package gg.steve.mc.dazzer.mt.vote;
 import gg.steve.mc.dazzer.mt.SPlugin;
 import gg.steve.mc.dazzer.mt.data.VoteDataYmlManager;
 import gg.steve.mc.dazzer.mt.db.MediaTokenDatabaseManager;
+import gg.steve.mc.dazzer.mt.file.FileManager;
 import gg.steve.mc.dazzer.mt.file.types.DataPluginFile;
 import gg.steve.mc.dazzer.mt.prize.PrizePool;
+import gg.steve.mc.dazzer.mt.utility.LogUtil;
 import lombok.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -23,7 +25,10 @@ public class MediaVote {
 
     public MediaVote() {
         this.voteId = UUID.randomUUID();
-        this.candidates = new HashMap<>();
+        this.candidates = new HashMap<>(FileManager.CoreFiles.CONFIG.get().getInt("candidates"));
+        for (int i = 1; i <= FileManager.CoreFiles.CONFIG.get().getInt("candidates"); i++) {
+            this.candidates.put(i, new Candidate(1));
+        }
         this.active = true;
         this.lifeTimer = this.registerLifeTimer();
     }
@@ -35,7 +40,7 @@ public class MediaVote {
         this.candidates = new HashMap<>();
         for (String key : data.getConfigurationSection("candidates").getKeys(false)) {
             int entry = Integer.parseInt(key);
-            this.candidates.put(entry, new Candidate(entry, data.getConfigurationSection(key + ".player-votes")));
+            this.candidates.put(entry, new Candidate(entry, data.getConfigurationSection("candidates." + entry)));
         }
         this.active = active;
         if (this.active) {

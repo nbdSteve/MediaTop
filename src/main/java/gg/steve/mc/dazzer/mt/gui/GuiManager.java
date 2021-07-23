@@ -1,6 +1,9 @@
 package gg.steve.mc.dazzer.mt.gui;
 
+import gg.steve.mc.dazzer.mt.SPlugin;
+import gg.steve.mc.dazzer.mt.file.types.GuiPluginFile;
 import gg.steve.mc.dazzer.mt.gui.exception.AbstractGuiNotFoundException;
+import gg.steve.mc.dazzer.mt.gui.exception.InvalidConfigurationFileTypeException;
 import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;
 import org.bukkit.entity.Player;
@@ -20,7 +23,7 @@ public class GuiManager extends AbstractManager {
 
     @Override
     public void onLoad() {
-
+        this.playerGuis = new HashMap<>();
     }
 
     @Override
@@ -40,6 +43,18 @@ public class GuiManager extends AbstractManager {
     public boolean guiExists(String guiUniqueName) {
         if (guis == null || guis.isEmpty()) return false;
         return guis.containsKey(guiUniqueName);
+    }
+
+    public boolean registerGuiFromFile(GuiPluginFile file) {
+        String unique = file.get().getString("unique-name");
+        AbstractGui gui = null;
+        try {
+            gui = new SGui(unique, file, SPlugin.getSPluginInstance());
+        } catch (InvalidConfigurationFileTypeException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return this.registerGui(gui);
     }
 
     public boolean registerGui(AbstractGui gui) {

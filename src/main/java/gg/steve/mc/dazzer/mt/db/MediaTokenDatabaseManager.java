@@ -81,7 +81,7 @@ public class MediaTokenDatabaseManager extends AbstractManager {
 
     public boolean isMediaVotePresentInDb(UUID voteId) {
         try {
-            UUID.fromString(SQLDatabaseHandler.getInstance().query("SELECT * FROM media_votes WHERE is_active='" + String.valueOf(voteId) + "'", "is_active"));
+            UUID.fromString(SQLDatabaseHandler.getInstance().query("SELECT * FROM media_votes WHERE vote_id='" + String.valueOf(voteId) + "'", "vote_id"));
         } catch (Exception e) {
             return false;
         }

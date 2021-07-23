@@ -1,17 +1,53 @@
 file-type: 'gui'
 
-candidates:
-  1:
-    slot: '12'
-    material: 'player_head'
-    amount: '1'
-    damage: ''
-    skull: ''
-    name: ''
-    lore:
-      - ''
-    enchants:
-      - ''
-    flags:
-      - ''
-    unbreakable: 'true'
+unique-name: 'vote-gui'
+type: 'none'
+size: 54
+parent-gui: 'none'
+inventory-name: '&5&lMedia Voting'
+pages: 1
+sounds:
+  open:
+    sound:
+      enabled: true
+      type: 'block_chest_open'
+      volume: 1
+      pitch: 0
+  close:
+    sound:
+      enabled: true
+      type: 'block_anvil_destory'
+      volume: 1
+      pitch: 0
+
+1:
+  slots:
+    - 49
+  action: 'none'
+  material: 'oak_door'
+  data: 0
+  name: '&c&lStats'
+  lore:
+    - ''
+    - '&7 &4&l* &cMedia Tokens: {tokens}'
+  enchantments:
+  item-flags:
+  unbreakable: false
+
+2:
+  slots:
+    - 12
+  action: 'candidate:1'
+  material: 'head-eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjUyMDhhMDI1OGIxZWIxYTg2MDIxMjMzNDhjMjRjNWZjNjUzZDg0Njg1MjEzY2RkMzRjNjc5NTM1NDJkMGQ5MiJ9fX0='
+  data: '3'
+  name: '&c&lnbdSteve'
+  lore:
+    - ''
+    - '&7 &4&l* &cName: nbdSteve'
+    - '&7 &4&l* &cCurrent Votes: {total votes}'
+    - '&7 &4&l* &cYour Votes: {player votes}'
+    - ''
+    - '&7((click to vote))'
+  enchantments:
+  item-flags:
+  unbreakable: 'false'

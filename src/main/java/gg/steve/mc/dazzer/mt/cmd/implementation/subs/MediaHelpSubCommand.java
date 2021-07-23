@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 public class MediaHelpSubCommand extends AbstractSubCommand {
 
     public MediaHelpSubCommand(AbstractCommand parent) {
-        super(parent, "help", "help", 0, 1);
+        super(parent, "help", "help", 1, 1);
         this.registerAlias("h");
     }
 

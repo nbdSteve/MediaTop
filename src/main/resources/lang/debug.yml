@@ -59,3 +59,12 @@ invalid-amount:
     enabled: 'false'
   text:
     - '&d[&5&lMediaTop&d] &c&lERROR &7Please enter a valid amount, an integer that is greater than 0.'
+
+insufficient:
+  unique-name: 'insufficient'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &c&lERROR &7You do not have enough media tokens to cast that vote.'
