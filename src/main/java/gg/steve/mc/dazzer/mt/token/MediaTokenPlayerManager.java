@@ -1,9 +1,13 @@
 package gg.steve.mc.dazzer.mt.token;
 
+import gg.steve.mc.dazzer.mt.SPlugin;
+import gg.steve.mc.dazzer.mt.file.FileManager;
 import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;
+import gg.steve.mc.dazzer.mt.utility.LogUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +17,7 @@ import java.util.UUID;
 public class MediaTokenPlayerManager extends AbstractManager {
     private static MediaTokenPlayerManager instance;
     private Map<UUID, MediaTokenPlayer> mediaTokenPlayers;
+    private BukkitTask distributionTask;
 
     public MediaTokenPlayerManager() {
         instance = this;
@@ -27,10 +32,12 @@ public class MediaTokenPlayerManager extends AbstractManager {
     @Override
     public void onLoad() {
         this.registerOnlineTokenPlayers();
+        this.registerDistributionTask();
     }
 
     @Override
     public void onShutdown() {
+        this.unregisterDistributionTask();
         this.unregisterOnlineTokenPlayers();
     }
 
@@ -54,6 +61,28 @@ public class MediaTokenPlayerManager extends AbstractManager {
     public void registerOnlineTokenPlayers() {
         for (Player player : Bukkit.getOnlinePlayers()) {
             this.registerMediaTokenPlayer(player.getUniqueId());
+        }
+    }
+
+    private void registerDistributionTask() {
+        if (this.distributionTask == null || this.distributionTask.isCancelled()) {
+            this.distributionTask = Bukkit.getScheduler().runTaskTimerAsynchronously(SPlugin.getSPluginInstance().getPlugin(), () -> {
+                if (this.mediaTokenPlayers == null || this.mediaTokenPlayers.isEmpty()) return;
+                for (MediaTokenPlayer player : this.mediaTokenPlayers.values()) {
+                    player.incrementOnlineSeconds();
+                    if (player.getSecondsOnline() % (FileManager.CoreFiles.CONFIG.get().getInt("media-token-interval")) == 0) {
+                        this.give(player.getPlayerId(), 1);
+                        LogUtil.info("Updated token balance for player, " + player.getPlayerId() + ", balance is: " + player.getBalance());
+                    }
+                }
+            }, 0L, 20L);
+        }
+    }
+
+    private void unregisterDistributionTask() {
+        if (this.distributionTask != null && !this.distributionTask.isCancelled()) {
+            this.distributionTask.cancel();
+            this.distributionTask = null;
         }
     }
 

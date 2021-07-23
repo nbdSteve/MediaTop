@@ -1,0 +1,10 @@
+file-type: 'data'
+
+vote:
+  id: 'uuid'
+  seconds-active: 'seconds'
+
+candidates:
+  1:
+    player-votes:
+      player-id: 'int'

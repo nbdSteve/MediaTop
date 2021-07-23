@@ -8,12 +8,13 @@ import java.util.UUID;
 @Data
 public class MediaTokenPlayer {
     private UUID playerId;
-    private int balance;
+    private int balance, secondsOnline;
 
     public MediaTokenPlayer(UUID playerId) {
         this.playerId = playerId;
         this.balance = MediaTokenDatabaseManager.getInstance().getMediaTokenBalanceForPlayer(this.playerId);
         if (this.balance == -1) this.balance = 0;
+        this.secondsOnline = 0;
     }
 
     public enum BalanceUpdateType {
@@ -40,6 +41,10 @@ public class MediaTokenPlayer {
 
     public void save() {
         MediaTokenDatabaseManager.getInstance().setMediaTokenBalanceForPlayer(this.playerId, this.balance);
+    }
+
+    public void incrementOnlineSeconds() {
+        this.secondsOnline++;
     }
 
     private int increment(int amount) {

@@ -43,10 +43,13 @@ public abstract class AbstractSQLHandler extends AbstractManager implements Data
             try {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery();
-                result = rs.getString(field);
+                while (rs.next()) {
+                    result = rs.getString(field);
+                }
                 statement.close();
             } catch (SQLException e) {
-                LogUtil.warning("An error occurred while trying to execute an sql query.");
+                e.printStackTrace();
+                LogUtil.warning("An error occurred while trying to execute an sql query. SQL: "+ sql);
             }
         }
         return result;
@@ -103,13 +106,16 @@ public abstract class AbstractSQLHandler extends AbstractManager implements Data
     @Override
     public void execute(String sql) {
         Connection connection = injector.getConnection();
+        if (connection == null) LogUtil.warning("connection null");
         Bukkit.getScheduler().runTaskAsynchronously(this.sPlugin.getPlugin(), () -> {
             try {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.execute();
                 statement.close();
             } catch (SQLException e) {
+                e.printStackTrace();
                 LogUtil.warning("An error occurred while trying to execute an sql execute statement.");
+                LogUtil.warning("sql: " + sql);
             }
         });
     }

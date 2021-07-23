@@ -3,10 +3,13 @@ file-type: 'configuration'
 database:
   implementation: 'sqlite'
   host: 'localhost'
-  port: 3306
+  port: '3306'
   database: 'mediatop'
   username: 'root'
   password: ''
+
+# Media token interval in seconds
+media-token-interval: '5'
 
 logo:
   - '╔═╦═╗──╔╦╗─╔══╗'
