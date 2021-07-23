@@ -32,10 +32,11 @@ public class SQLiteInjector extends AbstractDatabaseInjector {
                 }
             }
             Class.forName("org.sqlite.JDBC");
-            super.setConnection(DriverManager.getConnection("jdbc:sqlite:" + folder));
+            this.setConnection(DriverManager.getConnection("jdbc:sqlite:" + folder));
         } catch (Exception e) {
             e.printStackTrace();
             LogUtil.info("There was an error connecting to the MeidaTop SQLite database: " + e.getMessage());
+            return;
         }
         LogUtil.info("Successfully connected to the MeidaTop SQLite database.");
     }

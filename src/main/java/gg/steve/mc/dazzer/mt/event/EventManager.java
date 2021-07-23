@@ -1,6 +1,7 @@
 package gg.steve.mc.dazzer.mt.event;
 
 import gg.steve.mc.dazzer.mt.SPlugin;
+import gg.steve.mc.dazzer.mt.listener.ConnectionListener;
 import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;
 import org.bukkit.Bukkit;
@@ -19,7 +20,7 @@ public class EventManager extends AbstractManager {
 
     @Override
     public void onLoad() {
-
+        this.registerListener(new ConnectionListener());
     }
 
     @Override

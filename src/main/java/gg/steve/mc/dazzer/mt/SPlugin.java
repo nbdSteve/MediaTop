@@ -2,6 +2,7 @@ package gg.steve.mc.dazzer.mt;
 
 import gg.steve.mc.dazzer.mt.cmd.CommandManager;
 import gg.steve.mc.dazzer.mt.cmd.listener.TabCompleteListener;
+import gg.steve.mc.dazzer.mt.data.VoteDataYmlManager;
 import gg.steve.mc.dazzer.mt.db.MediaTokenDatabaseManager;
 import gg.steve.mc.dazzer.mt.db.SQLDatabaseHandler;
 import gg.steve.mc.dazzer.mt.event.EventManager;
@@ -14,6 +15,7 @@ import gg.steve.mc.dazzer.mt.permission.PermissionManager;
 import gg.steve.mc.dazzer.mt.placeholder.PlaceholderManager;
 import gg.steve.mc.dazzer.mt.token.MediaTokenPlayerManager;
 import gg.steve.mc.dazzer.mt.utility.LogUtil;
+import gg.steve.mc.dazzer.mt.vote.MediaVoteManager;
 import lombok.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,6 +40,8 @@ public class SPlugin {
     // Custom manager classes
     private final MediaTokenDatabaseManager mediaTokenDatabaseManager;
     private final MediaTokenPlayerManager mediaTokenPlayerManager;
+    private final VoteDataYmlManager voteDataYmlManager;
+    private final MediaVoteManager mediaVoteManager;
 
     public SPlugin(JavaPlugin plugin) {
         instance = this;
@@ -57,6 +61,8 @@ public class SPlugin {
         // Custom managers
         this.mediaTokenDatabaseManager = new MediaTokenDatabaseManager();
         this.mediaTokenPlayerManager = new MediaTokenPlayerManager();
+        this.voteDataYmlManager = new VoteDataYmlManager(instance);
+        this.mediaVoteManager = new MediaVoteManager();
         // load manager classes
         AbstractManager.loadManagers();
         // set up remaining core

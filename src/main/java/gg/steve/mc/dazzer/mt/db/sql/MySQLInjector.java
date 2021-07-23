@@ -21,6 +21,7 @@ public class MySQLInjector extends AbstractDatabaseInjector {
         } catch (Exception e) {
             e.printStackTrace();
             LogUtil.info("There was an error connecting to the MediaTop SQL database: " + e.getMessage());
+            return;
         }
         LogUtil.info("Successfully connected to the MediaTop SQL database.");
     }
