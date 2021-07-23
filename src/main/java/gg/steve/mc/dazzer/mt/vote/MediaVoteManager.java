@@ -7,6 +7,7 @@ import gg.steve.mc.dazzer.mt.file.types.DataPluginFile;
 import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -18,6 +19,7 @@ public class MediaVoteManager extends AbstractManager {
 
     public MediaVoteManager() {
         instance = this;
+        this.archivedMediaVotes = new HashMap<>();
         AbstractManager.registerManager(instance);
     }
 
@@ -37,8 +39,12 @@ public class MediaVoteManager extends AbstractManager {
         if (this.archivedMediaVotes != null && !this.archivedMediaVotes.isEmpty()) this.archivedMediaVotes.clear();
     }
 
+    public static MediaVoteManager getInstance() {
+        return instance;
+    }
+
     public boolean isMediaVoteActive() {
-        return this.activeMediaVote == null;
+        return this.activeMediaVote != null;
     }
 
     public void loadMediaVoteIfActive() {
@@ -54,9 +60,20 @@ public class MediaVoteManager extends AbstractManager {
         this.activeMediaVote = new MediaVote(file, true);
     }
 
+    public boolean startMediaVote() {
+        if (this.isMediaVoteActive()) return false;
+        this.activeMediaVote = new MediaVote();
+        return true;
+    }
+
+    public MediaVote getActiveMediaVote() {
+        return activeMediaVote;
+    }
+
     public boolean endActiveMediaVote() {
         if (!this.isMediaVoteActive()) return false;
         this.activeMediaVote.end();
+        if (this.archivedMediaVotes == null) this.archivedMediaVotes = new HashMap<>();
         this.archivedMediaVotes.put(this.activeMediaVote.getVoteId(), this.activeMediaVote);
         this.activeMediaVote = null;
         return true;

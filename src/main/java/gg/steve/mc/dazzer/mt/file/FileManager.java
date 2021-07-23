@@ -37,7 +37,9 @@ public class FileManager extends AbstractManager {
         PERMISSIONS("permissions.yml"),
         // lang
         MESSAGES("lang" + File.separator + "messages.yml"),
-        DEBUG("lang" + File.separator + "debug.yml");
+        DEBUG("lang" + File.separator + "debug.yml"),
+        // data
+        OFFLINE_WINNERS("data" + File.separator + "offline-winners.yml");
 
         private final String path;
 

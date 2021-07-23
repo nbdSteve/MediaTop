@@ -4,6 +4,7 @@ import gg.steve.mc.dazzer.mt.SPlugin;
 import gg.steve.mc.dazzer.mt.data.VoteDataYmlManager;
 import gg.steve.mc.dazzer.mt.db.MediaTokenDatabaseManager;
 import gg.steve.mc.dazzer.mt.file.types.DataPluginFile;
+import gg.steve.mc.dazzer.mt.prize.PrizePool;
 import lombok.Data;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -47,7 +48,8 @@ public class MediaVote {
     public void end() {
         this.active = false;
         this.save();
-        // do some shit with the draw here
+        // do the draw here
+        new PrizePool(this);
     }
 
     public void save() {
@@ -60,7 +62,7 @@ public class MediaVote {
         return Bukkit.getScheduler().runTaskTimerAsynchronously(SPlugin.getSPluginInstance().getPlugin(), () -> this.secondsActive++, 0L, 20L);
     }
 
-    public List<Candidate> getMostVoted() {
+    public List<Candidate> getMostVotedAsList() {
         Deque<Candidate> mostVoted = new ArrayDeque<>();
         for (Candidate candidate : this.candidates.values()) {
             if (mostVoted.isEmpty()) {
@@ -77,6 +79,10 @@ public class MediaVote {
         return new ArrayList<>(mostVoted);
     }
 
+    public Candidate getMostVotedCandidate() {
+        return this.getMostVotedAsList().get(new Random().nextInt(this.getMostVotedAsList().size()));
+    }
+
     public int getCandidateVotes(int entry) {
         if (!this.candidates.containsKey(entry)) return -1;
         return this.candidates.get(entry).getTotalVotes();
@@ -85,5 +91,9 @@ public class MediaVote {
     public int getPlayerVotesForCandidate(UUID playerId, int entry) {
         if (!this.candidates.containsKey(entry)) return -2;
         return this.candidates.get(entry).getPlayerVotes(playerId);
+    }
+
+    public int isActiveInt() {
+        return isActive() ? 1 : 0;
     }
 }

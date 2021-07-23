@@ -52,9 +52,9 @@ public class MediaTokenDatabaseManager extends AbstractManager {
 
     public void setMediaTokenBalanceForPlayer(UUID playerId, int balance) {
         if (this.hasExistingMediaTokenBalance(playerId)) {
-            SQLDatabaseHandler.getInstance().update("UPDATE media_tokens SET balance='" + balance + "' WHERE player_id='" + String.valueOf(playerId) + "'");
+            SQLDatabaseHandler.getInstance().synchronousUpdate("UPDATE media_tokens SET balance='" + balance + "' WHERE player_id='" + String.valueOf(playerId) + "'");
         } else {
-            SQLDatabaseHandler.getInstance().insert("INSERT INTO media_tokens (player_id, balance) VALUES (?, ?);", String.valueOf(playerId), String.valueOf(balance));
+            SQLDatabaseHandler.getInstance().synchronousInsert("INSERT INTO media_tokens (player_id, balance) VALUES (?, ?);", String.valueOf(playerId), String.valueOf(balance));
         }
     }
 
@@ -90,9 +90,9 @@ public class MediaTokenDatabaseManager extends AbstractManager {
 
     public void saveMediaVote(MediaVote vote) {
         if (this.isMediaVotePresentInDb(vote.getVoteId())) {
-            SQLDatabaseHandler.getInstance().update("UPDATE media_votes SET is_active='" + vote.isActive() + "' WHERE player_id='" + String.valueOf(vote.getVoteId()) + "'");
+            SQLDatabaseHandler.getInstance().synchronousUpdate("UPDATE media_votes SET is_active='" + vote.isActiveInt() + "' WHERE vote_id='" + String.valueOf(vote.getVoteId()) + "'");
         } else {
-            SQLDatabaseHandler.getInstance().insert("INSERT INTO media_tokens (vote_id, is_active) VALUES (?, ?);", String.valueOf(vote.getVoteId()), String.valueOf(vote.isActive()));
+            SQLDatabaseHandler.getInstance().synchronousInsert("INSERT INTO media_votes (vote_id, is_active) VALUES (?, ?);", String.valueOf(vote.getVoteId()), String.valueOf(vote.isActiveInt()));
         }
     }
 }

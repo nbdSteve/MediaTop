@@ -4,7 +4,6 @@ import gg.steve.mc.dazzer.mt.SPlugin;
 import gg.steve.mc.dazzer.mt.file.FileManager;
 import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;
-import gg.steve.mc.dazzer.mt.utility.LogUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
@@ -72,7 +71,6 @@ public class MediaTokenPlayerManager extends AbstractManager {
                     player.incrementOnlineSeconds();
                     if (player.getSecondsOnline() % (FileManager.CoreFiles.CONFIG.get().getInt("media-token-interval")) == 0) {
                         this.give(player.getPlayerId(), 1);
-                        LogUtil.info("Updated token balance for player, " + player.getPlayerId() + ", balance is: " + player.getBalance());
                     }
                 }
             }, 0L, 20L);
@@ -109,19 +107,19 @@ public class MediaTokenPlayerManager extends AbstractManager {
         give(to, amount);
     }
 
-    public void give(UUID playerId, int amount) {
-        this.getMediaTokenPlayer(playerId).update(MediaTokenPlayer.BalanceUpdateType.INCREMENT, amount);
+    public int give(UUID playerId, int amount) {
+        return this.getMediaTokenPlayer(playerId).update(MediaTokenPlayer.BalanceUpdateType.INCREMENT, amount);
     }
 
-    public void remove(UUID playerId, int amount) {
-        this.getMediaTokenPlayer(playerId).update(MediaTokenPlayer.BalanceUpdateType.DECREMENT, amount);
+    public int remove(UUID playerId, int amount) {
+        return this.getMediaTokenPlayer(playerId).update(MediaTokenPlayer.BalanceUpdateType.DECREMENT, amount);
     }
 
-    public void set(UUID playerId, int amount) {
-        this.getMediaTokenPlayer(playerId).update(MediaTokenPlayer.BalanceUpdateType.SET, amount);
+    public int set(UUID playerId, int amount) {
+        return this.getMediaTokenPlayer(playerId).update(MediaTokenPlayer.BalanceUpdateType.SET, amount);
     }
 
-    public void reset(UUID playerId) {
-        this.getMediaTokenPlayer(playerId).update(MediaTokenPlayer.BalanceUpdateType.RESET, 0);
+    public int reset(UUID playerId) {
+        return this.getMediaTokenPlayer(playerId).update(MediaTokenPlayer.BalanceUpdateType.RESET, 0);
     }
 }

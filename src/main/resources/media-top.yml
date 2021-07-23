@@ -9,7 +9,16 @@ database:
   password: ''
 
 # Media token interval in seconds
-media-token-interval: '5'
+media-token-interval: 5
+
+prize-pool:
+  # Prize countdown in seconds
+  countdown: 10
+  commands:
+    - 'give {player} diamond 1'
+  broadcast:
+    countdown: '&d[&5&lMediaTop&d] &7The vote has ended, winner being drawn in &e{seconds} &7seconds.'
+    winner: '&d[&5&lMediaTop&d] &e{player} &7has won the prize draw!'
 
 logo:
   - '╔═╦═╗──╔╦╗─╔══╗'

@@ -11,4 +11,12 @@ public interface DatabaseHandler {
     void insert(String sql, String... values);
 
     void execute(String sql);
+
+    void synchronousUpdate(String sql);
+
+    void synchronousDelete(String sql);
+
+    void synchronousInsert(String sql, String... values);
+
+    void synchronousExecute(String sql);
 }

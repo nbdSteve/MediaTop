@@ -1,6 +1,8 @@
 package gg.steve.mc.dazzer.mt.cmd;
 
 import gg.steve.mc.dazzer.mt.SPlugin;
+import gg.steve.mc.dazzer.mt.cmd.implementation.MediaCommand;
+import gg.steve.mc.dazzer.mt.cmd.implementation.MediaTopCommand;
 import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;
 import gg.steve.mc.dazzer.mt.utility.LogUtil;
@@ -46,6 +48,8 @@ public class CommandManager extends AbstractManager {
             e.printStackTrace();
         }
         // Register plugin commands
+        this.registerCommand(new MediaTopCommand());
+        this.registerCommand(new MediaCommand());
     }
 
     @Override
