@@ -48,7 +48,6 @@ public abstract class AbstractSQLHandler extends AbstractManager implements Data
                 }
                 statement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
                 LogUtil.warning("An error occurred while trying to execute an sql query. SQL: "+ sql);
             }
         }
@@ -106,17 +105,76 @@ public abstract class AbstractSQLHandler extends AbstractManager implements Data
     @Override
     public void execute(String sql) {
         Connection connection = injector.getConnection();
-        if (connection == null) LogUtil.warning("connection null");
         Bukkit.getScheduler().runTaskAsynchronously(this.sPlugin.getPlugin(), () -> {
             try {
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.execute();
                 statement.close();
             } catch (SQLException e) {
-                e.printStackTrace();
                 LogUtil.warning("An error occurred while trying to execute an sql execute statement.");
-                LogUtil.warning("sql: " + sql);
             }
         });
+    }
+
+    @Override
+    public void synchronousUpdate(String sql) {
+        Connection connection = injector.getConnection();
+        synchronized (this.sPlugin.getPlugin()) {
+            try {
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.executeUpdate();
+                statement.close();
+            } catch (SQLException e) {
+                LogUtil.warning("An error occurred while trying to execute an sql update statement.");
+            }
+        }
+    }
+
+    @Override
+    public void synchronousDelete(String sql) {
+        Connection connection = injector.getConnection();
+        synchronized (this.sPlugin.getPlugin()) {
+            try {
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.executeUpdate();
+                statement.close();
+            } catch (SQLException e) {
+                LogUtil.warning("An error occurred while trying to execute an sql delete statement.");
+            }
+        }
+    }
+
+    @Override
+    public void synchronousInsert(String sql, String... values) {
+        Connection connection = injector.getConnection();
+        synchronized (this.sPlugin.getPlugin()) {
+            try {
+                PreparedStatement statement = connection.prepareStatement(sql);
+                if (values != null) {
+                    List<String> replacements = Arrays.asList(values);
+                    for (int i = 1; i <= replacements.size(); i++) {
+                        statement.setString(i, replacements.get(i - 1));
+                    }
+                }
+                statement.executeUpdate();
+                statement.close();
+            } catch (SQLException e) {
+                LogUtil.warning("An error occurred while trying to execute an sql insert statement.");
+            }
+        }
+    }
+
+    @Override
+    public void synchronousExecute(String sql) {
+        Connection connection = injector.getConnection();
+        synchronized (this.sPlugin.getPlugin()) {
+            try {
+                PreparedStatement statement = connection.prepareStatement(sql);
+                statement.execute();
+                statement.close();
+            } catch (SQLException e) {
+                LogUtil.warning("An error occurred while trying to execute an sql execute statement.");
+            }
+        }
     }
 }

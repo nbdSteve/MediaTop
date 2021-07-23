@@ -24,9 +24,9 @@ public class Candidate {
         this.entry = entry;
         this.totalVotes = 0;
         this.votes = new HashMap<>();
-        for (String uuid : section.getKeys(false)) {
+        if (section != null) for (String uuid : section.getKeys(false)) {
             UUID playerId = UUID.fromString(uuid);
-            this.update(playerId, VoteUpdateType.INCREMENT, section.getInt(uuid));
+            this.update(playerId, VoteUpdateType.INCREMENT, Integer.parseInt(section.getString(uuid)));
         }
     }
 
@@ -54,13 +54,13 @@ public class Candidate {
     }
 
     private int increment(UUID voter, int amount) {
-        int current = this.votes.get(voter);
+        int current = this.votes.containsKey(voter) ? this.votes.get(voter) : 0;
         this.votes.put(voter, current + amount);
         return this.totalVotes += amount;
     }
 
     private int decrement(UUID voter, int amount) {
-        int current = this.votes.get(voter);
+        int current = this.votes.containsKey(voter) ? this.votes.get(voter) : 0;
         this.votes.put(voter, current - amount);
         return this.totalVotes -= amount;
     }
@@ -71,7 +71,7 @@ public class Candidate {
     }
 
     public int getPlayerVotes(UUID playerId) {
-        if (!this.votes.containsKey(playerId)) return -3;
+        if (!this.votes.containsKey(playerId)) return 0;
         return this.votes.get(playerId);
     }
 }

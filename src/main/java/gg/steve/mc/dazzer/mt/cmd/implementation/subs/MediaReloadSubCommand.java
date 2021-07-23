@@ -2,16 +2,19 @@ package gg.steve.mc.dazzer.mt.cmd.implementation.subs;
 
 import gg.steve.mc.dazzer.mt.cmd.AbstractCommand;
 import gg.steve.mc.dazzer.mt.cmd.AbstractSubCommand;
+import gg.steve.mc.dazzer.mt.message.MessageManager;
+import gg.steve.mc.dazzer.mt.utility.NumberFormatUtil;
 import org.bukkit.command.CommandSender;
 
 public class MediaReloadSubCommand extends AbstractSubCommand {
 
-    public MediaReloadSubCommand(AbstractCommand parent, String command, String permissionKey, int minArgLength, int maxArgLength) {
-        super(parent, command, permissionKey, minArgLength, maxArgLength);
+    public MediaReloadSubCommand(AbstractCommand parent) {
+        super(parent, "reload", "reload", 1, 1);
+        this.registerAlias("r");
     }
 
     @Override
     public void run(CommandSender executor, String[] arguments) {
-
+        MessageManager.getInstance().sendMessage("reload", executor, "SUCCESS");
     }
 }

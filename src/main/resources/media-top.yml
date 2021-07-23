@@ -9,7 +9,30 @@ database:
   password: ''
 
 # Media token interval in seconds
-media-token-interval: '5'
+media-token-interval: 900
+
+prize-pool:
+  # Prize countdown in seconds
+  countdown: 10
+  commands:
+    - 'give {player} diamond 1'
+  broadcast:
+    countdown: '&d[&5&lMediaTop&d] &7The vote has ended, winner being drawn in &e{seconds} &7seconds.'
+    winner: '&d[&5&lMediaTop&d] &e{player} &7has won the prize draw!'
+
+# The number of people to vote for, max 54
+candidates: 1
+
+no-vote-active-candidate-item:
+  material: 'barrier'
+  data: 0
+  name: '&c&lNo Media Vote Is Active'
+  lore:
+    - ''
+    - '&7 &4&l* &cMedia Tokens: {tokens}'
+  enchantments:
+  item-flags:
+  unbreakable: false
 
 logo:
   - '╔═╦═╗──╔╦╗─╔══╗'

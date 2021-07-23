@@ -64,7 +64,7 @@ public class SPlugin {
         this.voteDataYmlManager = new VoteDataYmlManager(instance);
         this.mediaVoteManager = new MediaVoteManager();
         // load manager classes
-        AbstractManager.loadManagers();
+        this.enable();
         // set up remaining core
         this.doLoadDebug();
     }

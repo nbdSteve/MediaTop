@@ -18,3 +18,82 @@ reload:
   text:
     - '&d[&5&lMediaTop&d]'
     - ' &7- &fReload Status: &a&l{status}'
+
+vote-start:
+  unique-name: 'vote-start'
+  placeholders:
+    - '{vote id}'
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7You have successfully started a media vote, the vote id is: &e{vote id}'
+
+vote-end:
+  unique-name: 'vote-end'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7You have successfully ended the active media vote, the prize pool will now be drawn.'
+
+player-token-balance:
+  unique-name: 'player-token-balance'
+  placeholders:
+    - '{player}'
+    - '{balance}'
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7Player, &6{player}&7, has &e{balance} &7media tokens.'
+
+update-player-token-balance:
+  unique-name: 'update-player-token-balance'
+  placeholders:
+    - '{player}'
+    - '{balance}'
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - "&d[&5&lMediaTop&d] &7You have updated player, &6{player}&7's token balance. Their updated balance is &e{balance} &7media tokens."
+
+offline-winner:
+  unique-name: 'offline-winner'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7You won the media vote but you were offline, giving rewards now.'
+
+enter-vote-mode:
+  unique-name: 'enter-vote-mode'
+  placeholders:
+    - '{balance}'
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7You have entered vote mode, type a number in chat to vote, you have &e{balance} &7media tokens.'
+
+exit-vote-mode:
+  unique-name: 'exit-vote-mode'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7You have exited vote mode.'
+
+successful-vote:
+  unique-name: 'successful-vote'
+  placeholders:
+    - '{amount}'
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &7You successfully cast a vote of &e{amount} &7media tokens.'

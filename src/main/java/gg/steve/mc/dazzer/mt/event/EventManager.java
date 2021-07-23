@@ -1,6 +1,7 @@
 package gg.steve.mc.dazzer.mt.event;
 
 import gg.steve.mc.dazzer.mt.SPlugin;
+import gg.steve.mc.dazzer.mt.gui.listener.GuiEventListener;
 import gg.steve.mc.dazzer.mt.listener.ConnectionListener;
 import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;

@@ -83,7 +83,7 @@ public abstract class AbstractSubCommand {
 
     public boolean isExecutor(String command) {
         if (this.command.equalsIgnoreCase(command)) return true;
-        for (String alias : this.aliases) {
+        if (this.aliases != null && !this.aliases.isEmpty()) for (String alias : this.aliases) {
             if (alias.equalsIgnoreCase(command)) return true;
         }
         return false;

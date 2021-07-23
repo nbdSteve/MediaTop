@@ -21,9 +21,7 @@ public class GuiEventListener implements Listener {
     @EventHandler
     public void guiItemClick(InventoryClickEvent event) {
         Player player = (Player) event.getWhoClicked();
-        if (this.gui.getViewers().containsKey(player.getUniqueId())
-                && this.gui.getViewers().get(player.getUniqueId()).equals(this.gui.getGuiId())
-                && event.getRawSlot() < this.gui.getSize()) {
+        if (this.gui.getViewers().contains(player.getUniqueId()) && event.getRawSlot() < this.gui.getSize()) {
             event.setCancelled(true);
             if (!this.gui.getComponents().containsKey(event.getSlot())) return;
             this.gui.getComponents().get(event.getSlot()).onClick(player);
@@ -33,7 +31,7 @@ public class GuiEventListener implements Listener {
     @EventHandler
     public void guiClose(InventoryCloseEvent event) {
         Player player = (Player) event.getPlayer();
-        if (this.gui.getViewers().containsKey(player.getUniqueId()) &&
+        if (this.gui.getViewers().contains(player.getUniqueId()) &&
                 this.gui.isHasParentGui()) {
             this.gui.close(player);
             try {

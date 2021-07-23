@@ -26,6 +26,8 @@ public class InventoryClickActionManager extends AbstractManager {
         this.registerInventoryClickAction(new OpenInventoryClickAction());
         this.registerInventoryClickAction(new PageInventoryClickAction());
         this.registerInventoryClickAction(new PermissionInventoryClickAction());
+        this.registerInventoryClickAction(new CandidateClickAction());
+        this.registerInventoryClickAction(new DefaultClickAction());
     }
 
     @Override
@@ -35,7 +37,7 @@ public class InventoryClickActionManager extends AbstractManager {
 
     @Override
     protected String getManagerName() {
-        return "InventoryActions";
+        return "Inventory Actions";
     }
 
     public boolean registerInventoryClickAction(AbstractInventoryClickAction inventoryClickAction) {

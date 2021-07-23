@@ -32,3 +32,39 @@ no-permission:
     fade-out: 20
   text:
     - '&d[&5&lMediaTop&d] &c&lERROR &7You do not have permission (&6{node}&7) to use that.'
+
+vote-active:
+  unique-name: 'vote-active'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &c&lERROR &7There is already a media vote active, end it first before starting another.'
+
+no-vote-active:
+  unique-name: 'no-vote-active'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &c&lERROR &7There is not an active media vote.'
+
+invalid-amount:
+  unique-name: 'invalid-amount'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &c&lERROR &7Please enter a valid amount, an integer that is greater than 0.'
+
+insufficient:
+  unique-name: 'insufficient'
+  placeholders:
+  action-bar: 'false'
+  title:
+    enabled: 'false'
+  text:
+    - '&d[&5&lMediaTop&d] &c&lERROR &7You do not have enough media tokens to cast that vote.'
