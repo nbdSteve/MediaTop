@@ -77,7 +77,7 @@ enter-vote-mode:
   title:
     enabled: 'false'
   text:
-    - '&d[&5&lMediaTop&d] &7You have entered vote mode, type a number in chat to vote, you have &e{balance} &7media tokens.'
+    - '&d[&5&lMediaTop&d] &7You have entered vote mode, type a number in chat to vote, or exit to get out of vote mode. You have &e{balance} &7media tokens.'
 
 exit-vote-mode:
   unique-name: 'exit-vote-mode'

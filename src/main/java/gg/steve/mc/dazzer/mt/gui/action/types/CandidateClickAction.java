@@ -10,6 +10,7 @@ import gg.steve.mc.dazzer.mt.utility.ItemBuilderUtil;
 import gg.steve.mc.dazzer.mt.utility.NumberFormatUtil;
 import gg.steve.mc.dazzer.mt.vote.Candidate;
 import gg.steve.mc.dazzer.mt.vote.MediaVoteManager;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -23,9 +24,12 @@ public class CandidateClickAction extends AbstractInventoryClickAction {
 
     @Override
     public void onClick(AbstractGui gui, Player player, ConfigurationSection section, int slot) {
+        if (!MediaVoteManager.getInstance().isMediaVoteActive()) return;
         int candidateId = this.getCandidateIdFromConfig(section.getString("action"));
         gui.close(player);
+//        player.sendMessage(ChatColor.RED + "Player, " + player.getName() + ", has clicked candidate with id: " + candidateId);
         MediaVoteManager.getInstance().setPlayerInVoteMode(player.getUniqueId(), candidateId);
+//        player.sendMessage(ChatColor.RED + "In vote mode: " + MediaVoteManager.getInstance().isPlayerVoting(player.getUniqueId()));
         MessageManager.getInstance().sendMessage("enter-vote-mode", player, NumberFormatUtil.format(MediaTokenPlayerManager.getInstance().getMediaTokenBalanceForPlayer(player.getUniqueId())));
     }
 

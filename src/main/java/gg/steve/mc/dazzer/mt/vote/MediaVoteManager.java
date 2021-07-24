@@ -9,6 +9,8 @@ import gg.steve.mc.dazzer.mt.manager.AbstractManager;
 import gg.steve.mc.dazzer.mt.manager.ManagerClass;
 import gg.steve.mc.dazzer.mt.token.MediaTokenPlayerManager;
 import gg.steve.mc.dazzer.mt.vote.listener.PlayerVotingChatListener;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 
 import java.util.*;
 
@@ -112,8 +114,14 @@ public class MediaVoteManager extends AbstractManager {
     }
 
     public boolean doPlayerVote(UUID playerId, int amount) {
-        if (!this.isMediaVoteActive()) return false;
-        if (MediaTokenPlayerManager.getInstance().getMediaTokenBalanceForPlayer(playerId) < amount) return false;
+        if (!this.isMediaVoteActive()) {
+//            Bukkit.getPlayer(playerId).sendMessage(ChatColor.RED + "Tried to cast media vote but there is no vote active.");
+            return false;
+        }
+        if (MediaTokenPlayerManager.getInstance().getMediaTokenBalanceForPlayer(playerId) < amount) {
+//            Bukkit.getPlayer(playerId).sendMessage(ChatColor.RED + "Tried to cast media vote but insufficient funds.");
+            return false;
+        }
         MediaTokenPlayerManager.getInstance().remove(playerId, amount);
         this.activeMediaVote.getCandidates().get(this.getVotingPlayerCandidateId(playerId)).update(playerId, Candidate.VoteUpdateType.INCREMENT, amount);
         this.unsetPlayerInVoteMode(playerId);
@@ -121,7 +129,10 @@ public class MediaVoteManager extends AbstractManager {
     }
 
     public void unsetPlayerInVoteMode(UUID playerId) {
-        if (!this.isPlayerVoting(playerId)) return;
+        if (!this.isPlayerVoting(playerId)) {
+
+            return;
+        }
         this.votingPlayers.remove(playerId);
     }
 }
