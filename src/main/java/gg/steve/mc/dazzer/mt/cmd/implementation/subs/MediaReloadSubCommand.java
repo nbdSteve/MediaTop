@@ -1,5 +1,6 @@
 package gg.steve.mc.dazzer.mt.cmd.implementation.subs;
 
+import gg.steve.mc.dazzer.mt.SPlugin;
 import gg.steve.mc.dazzer.mt.cmd.AbstractCommand;
 import gg.steve.mc.dazzer.mt.cmd.AbstractSubCommand;
 import gg.steve.mc.dazzer.mt.message.MessageManager;
@@ -15,6 +16,9 @@ public class MediaReloadSubCommand extends AbstractSubCommand {
 
     @Override
     public void run(CommandSender executor, String[] arguments) {
+        SPlugin.getSPluginInstance().getPlugin().onDisable();
+        SPlugin.getSPluginInstance().getPlugin().onLoad();
+        SPlugin.getSPluginInstance().getPlugin().onEnable();
         MessageManager.getInstance().sendMessage("reload", executor, "SUCCESS");
     }
 }

@@ -24,7 +24,7 @@ sounds:
   slots:
     - 49
   action: 'none'
-  material: 'oak_door'
+  material: 'ender_pearl'
   data: 0
   name: '&c&lStats'
   lore:

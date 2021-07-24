@@ -64,21 +64,20 @@ public class MediaTokenPlayerManager extends AbstractManager {
     }
 
     private void registerDistributionTask() {
-        if (this.distributionTask == null || this.distributionTask.isCancelled()) {
-            this.distributionTask = Bukkit.getScheduler().runTaskTimerAsynchronously(SPlugin.getSPluginInstance().getPlugin(), () -> {
-                if (this.mediaTokenPlayers == null || this.mediaTokenPlayers.isEmpty()) return;
-                for (MediaTokenPlayer player : this.mediaTokenPlayers.values()) {
-                    player.incrementOnlineSeconds();
-                    if (player.getSecondsOnline() % (FileManager.CoreFiles.CONFIG.get().getInt("media-token-interval")) == 0) {
-                        this.give(player.getPlayerId(), 1);
-                    }
+        if (this.distributionTask != null) this.distributionTask.cancel();
+        this.distributionTask = Bukkit.getScheduler().runTaskTimerAsynchronously(SPlugin.getSPluginInstance().getPlugin(), () -> {
+            if (this.mediaTokenPlayers == null || this.mediaTokenPlayers.isEmpty()) return;
+            for (MediaTokenPlayer player : this.mediaTokenPlayers.values()) {
+                player.incrementOnlineSeconds();
+                if (player.getSecondsOnline() % (FileManager.CoreFiles.CONFIG.get().getInt("media-token-interval")) == 0) {
+                    this.give(player.getPlayerId(), 1);
                 }
-            }, 0L, 20L);
-        }
+            }
+        }, 0L, 20L);
     }
 
     private void unregisterDistributionTask() {
-        if (this.distributionTask != null && !this.distributionTask.isCancelled()) {
+        if (this.distributionTask != null) {
             this.distributionTask.cancel();
             this.distributionTask = null;
         }
